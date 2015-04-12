@@ -1,0 +1,27 @@
+{
+  "name": "gully",
+  "version": "0.0.1",
+  "description": "A lightweight client-side router written in ES6",
+  "main": "./src/gully.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/nmabhinandan/gully"
+  },
+  "keywords": [
+    "router"
+  ],
+  "author": "Abhinandan <hello@nmabhinandan.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nmabhinandan/gully/issues"
+  },
+  "homepage": "https://github.com/nmabhinandan/gully",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.1.0",
+    "gulp-sourcemaps": "^1.5.1"
+  }
+}
