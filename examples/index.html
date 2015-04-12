@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<div data-gully-view></div>
+	<script src="/bower_components/es6-promise/promise.min.js"></script>
+	<script src="/bower_components/fetch/fetch.js"></script>
+	<script src="/bower_components/requirejs/require.js"></script>
+
+	<!--script src="/dist/gully.js"></script-->
+	
+
+	<script>
+		require.config({
+			waitSeconds: 6
+		});
+
+		require(['../dist/gully'], function(Gully) {
+			var gully = new Gully();
+			
+			gully.state({
+				url: '/',
+				templateUrl: 'templates/home.html',
+				controller: homeCtrl
+			}).state({
+				url: '/about',
+				templateUrl: 'templates/about.html',
+				controller: aboutCtrl
+			}).state({
+				url: '/404',
+				templateUrl: '404.html'
+			}).init();			
+
+			function homeCtrl() {
+				console.log('I\'m home controller');
+			}
+
+			function aboutCtrl() {
+				console.log('I\'m about controller');
+			}
+
+		});
+	</script>
+</body>
+</html>
