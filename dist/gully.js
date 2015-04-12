@@ -14,6 +14,8 @@ define(['exports', 'module'], function (exports, module) {
 
 			this.routes = routes;
 			this.hashBangs = options.hashBangs;
+			this.viewAttr = 'data-gully-view';
+			this.notFoundUrl = '404';
 
 			this.registerEvents(this.hashBangs);
 		}
@@ -48,7 +50,117 @@ define(['exports', 'module'], function (exports, module) {
 			}
 		}, {
 			key: 'handle',
-			value: function handle() {}
+			value: function handle() {
+
+				var fragment = this.getUrlFragment();
+				var found = false;
+				var _iteratorNormalCompletion = true;
+				var _didIteratorError = false;
+				var _iteratorError = undefined;
+
+				try {
+					for (var _iterator = this.routes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+						var r = _step.value;
+
+						var match = r.url.match(/\/([^\/]*).*$/);
+						var url = match ? match[1] : '';
+
+						if (url.trim() === fragment.trim()) {
+							this.applyState(url.trim(), r);
+							found = true;
+						}
+					}
+				} catch (err) {
+					_didIteratorError = true;
+					_iteratorError = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion && _iterator['return']) {
+							_iterator['return']();
+						}
+					} finally {
+						if (_didIteratorError) {
+							throw _iteratorError;
+						}
+					}
+				}
+
+				if (!found) {
+					this.handleNotFoundUrl();
+				}
+			}
+		}, {
+			key: 'applyState',
+			value: function applyState(url, route) {
+
+				if (route.controller) {
+					route.controller();
+				}
+
+				var viewElement = this.selectElement();
+
+				fetch(route.templateUrl).then(function (response) {
+					return response.text();
+				}).then(function (body) {
+					viewElement.innerHTML = body;
+				});
+			}
+		}, {
+			key: 'handleNotFoundUrl',
+			value: function handleNotFoundUrl() {
+				var url = window.location.href;
+				url = url.replace(/#(.*)$/, '#/' + this.notFoundUrl);
+				window.location = url;
+			}
+		}, {
+			key: 'selectElement',
+			value: function selectElement() {
+
+				if (document.querySelectorAll) {
+					return document.querySelector('[' + this.viewAttr + ']');
+				} else {
+					var matchingElement = undefined;
+					var allElements = document.getElementsByTagName('*');
+					var _iteratorNormalCompletion2 = true;
+					var _didIteratorError2 = false;
+					var _iteratorError2 = undefined;
+
+					try {
+						for (var _iterator2 = allElements[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+							var elt = _step2.value;
+
+							if (elt.getAttribute(this.viewAttr) !== null) {
+								matchingElement = allElements[i];
+								break;
+							}
+						}
+					} catch (err) {
+						_didIteratorError2 = true;
+						_iteratorError2 = err;
+					} finally {
+						try {
+							if (!_iteratorNormalCompletion2 && _iterator2['return']) {
+								_iterator2['return']();
+							}
+						} finally {
+							if (_didIteratorError2) {
+								throw _iteratorError2;
+							}
+						}
+					}
+
+					return matchingElement;
+				}
+			}
+		}, {
+			key: 'getUrlFragment',
+			value: function getUrlFragment() {
+				var match = window.location.href.match(/\/#\/(.*)$/);
+				var frag = match ? match[1] : '';
+				console.log(frag);
+
+				return frag;
+			}
 		}]);
 
 		return Gully;
@@ -56,6 +168,4 @@ define(['exports', 'module'], function (exports, module) {
 
 	module.exports = Gully;
 });
-
-// TODO
 //# sourceMappingURL=gully.js.map
