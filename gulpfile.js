@@ -3,7 +3,7 @@ var babel = require('gulp-babel');
 var sourcemaps = require("gulp-sourcemaps");
 
 gulp.task('js', function() {
-	gulp.src('src/*.js')
+	return gulp.src('src/*.js')
 		.pipe(sourcemaps.init())
 		.pipe(babel({
 			modules: 'amd'
@@ -12,8 +12,19 @@ gulp.task('js', function() {
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('watch', function() {
-	gulp.watch('src/*.js', ['js']);
+gulp.task('tests', function() {
+	return gulp.src('src/tests/**/*js')
+		.pipe(babel({
+			modules: 'amd'
+		}))
+		.pipe(gulp.dest('dist/tests'));
 });
 
-gulp.task('default', ['js', 'watch']);
+gulp.task('watch', function() {
+	gulp.watch('src/*.js', ['js']);
+	gulp.watch('src/tests/**/*.js', ['tests']);
+});
+
+
+
+gulp.task('default', ['js', 'watch', 'tests']);

@@ -54,6 +54,12 @@ define(['exports', 'module'], function (exports, module) {
 
 				var fragment = this.getUrlFragment();
 				var found = false;
+				var frags = fragment.split(/\//);
+				// if (frags[frags.length] == '') {
+				// 	frags.splice(frags.length, 1);
+				// }
+
+				console.log(frags);
 				var _iteratorNormalCompletion = true;
 				var _didIteratorError = false;
 				var _iteratorError = undefined;
@@ -63,10 +69,12 @@ define(['exports', 'module'], function (exports, module) {
 						var r = _step.value;
 
 						var match = r.url.match(/\/([^\/]*).*$/);
-						var url = match ? match[1] : '';
+						var userRoutes = match ? match[1] : '';
 
-						if (url.trim() === fragment.trim()) {
-							this.applyState(url.trim(), r);
+						// let routeFrags = userRoutes.split();
+
+						if (userRoutes.trim() === fragment.trim()) {
+							this.applyState(userRoutes.trim(), r);
 							found = true;
 						}
 					}
@@ -155,9 +163,8 @@ define(['exports', 'module'], function (exports, module) {
 		}, {
 			key: 'getUrlFragment',
 			value: function getUrlFragment() {
-				var match = window.location.href.match(/\/#\/(.*)$/);
+				var match = window.location.href.match(/\/#\/(.*)/);
 				var frag = match ? match[1] : '';
-				console.log(frag);
 
 				return frag;
 			}

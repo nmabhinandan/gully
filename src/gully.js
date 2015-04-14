@@ -1,10 +1,10 @@
 export default class Gully {
-	
-	constructor(routes = [], options = {}) {
+
+	constructor(routes = [], {hashBangs: true, viewAttribute: 'data-gully-view', notFoundUrl: '404' } = {}) {
 		this.routes = routes;
 		this.hashBangs = options.hashBangs;
-		this.viewAttr = 'data-gully-view';
-		this.notFoundUrl = '404'
+		this.viewAttr = options.viewAttribute;
+		this.notFoundUrl = options.notFoundUrl;
 		
 		this.registerEvents(this.hashBangs);
 	}
@@ -33,12 +33,20 @@ export default class Gully {
 
 		let fragment = this.getUrlFragment();
 		let found = false;		
+		let frags = fragment.split(/\//);
+		// if (frags[frags.length] == '') {
+		// 	frags.splice(frags.length, 1);
+		// }
+
+		console.log(frags);
 		for(let r of this.routes) {
 			let match = r.url.match(/\/([^\/]*).*$/);
-			let url = match ? match[1] : '';
+			let userRoutes = match ? match[1] : '';
 
-			if(url.trim() === fragment.trim()) {
-				this.applyState(url.trim(), r);
+			// let routeFrags = userRoutes.split();
+
+			if(userRoutes.trim() === fragment.trim()) {
+				this.applyState(userRoutes.trim(), r);
 				found = true;
 			}
 		}
@@ -87,10 +95,9 @@ export default class Gully {
 		}
 	}
 
-	getUrlFragment() {
-		let match = window.location.href.match(/\/#\/(.*)$/);				
-        let frag = match ? match[1] : '';
-        console.log(frag);
+	getUrlFragment() {		
+		let match = window.location.href.match(/\/#\/(.*)/);				
+        let frag = match ? match[1] : '';        
 
         return frag;
 	}
