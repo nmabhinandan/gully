@@ -1,10 +1,18 @@
 language: node_js
+
 node_js:
-- '0.11'
-- '0.12'
-- 'iojs-v1.7.1'
+  - '0.11'
+  - '0.12'
+  - 'iojs-v1.7.1'
+
+matrix:
+  allow_failures:
+    - node_js: 'iojs-v1.7.1'
+
+sudo: false
+
 cache:
   directories:
     - bower_components
 before_script:
-	- phantomjs --version
+  - phantomjs --version
