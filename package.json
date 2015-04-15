@@ -4,7 +4,7 @@
   "description": "A lightweight client-side router written in ES6",
   "main": "./src/gully.js",
   "scripts": {
-    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs test.html"
+    "test": "./node_modules/.bin/mocha-phantomjs test.html"
   },
   "repository": {
     "type": "git",
