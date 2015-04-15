@@ -1,3 +1,8 @@
+/**
+ * Gully.js
+ * License: MIT
+ */
+
 export default class Gully {
 
 	constructor(options = { hashBangs: true, viewAttribute: "data-gully-view", notFoundUrl: "404" }) {
