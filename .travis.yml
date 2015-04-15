@@ -8,5 +8,3 @@ cache:
     - bower_components
 before_script:
 	- phantomjs --version
-addons:
-	mongodb: "3.0"
