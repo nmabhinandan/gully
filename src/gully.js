@@ -1,10 +1,11 @@
 export default class Gully {
 
-	constructor(routes = [], { hashBangs: true, viewAttribute: 'data-gully-view', notFoundUrl: '404' } = {}) {
-		this.routes = routes;
-		this.hashBangs = hashBangs;
-		this.viewAttr = viewAttribute;
-		this.notFoundUrl = notFoundUrl;
+	constructor(options = { hashBangs: true, viewAttribute: "data-gully-view", notFoundUrl: "404" }) {
+			
+		this.routes = [];
+		this.hashBangs = options.hashBangs;
+		this.viewAttribute = options.viewAttribute;
+		this.notFoundUrl = options.notFoundUrl;
 		
 		this.registerEvents(this.hashBangs);
 	}

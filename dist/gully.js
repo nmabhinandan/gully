@@ -1,27 +1,26 @@
-define(['exports', 'module'], function (exports, module) {
-	'use strict';
+define(["exports", "module"], function (exports, module) {
+	"use strict";
 
-	var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
+	var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	var Gully = (function () {
 		function Gully() {
-			var routes = arguments[0] === undefined ? [] : arguments[0];
-			var options = arguments[1] === undefined ? { hashBangs: true, viewAttribute: 'data-gully-view', notFoundUrl: '404' } : arguments[1];
+			var options = arguments[0] === undefined ? { hashBangs: true, viewAttribute: "data-gully-view", notFoundUrl: "404" } : arguments[0];
 
 			_classCallCheck(this, Gully);
 
-			this.routes = routes;
+			this.routes = [];
 			this.hashBangs = options.hashBangs;
-			this.viewAttr = options.viewAttribute;
+			this.viewAttribute = options.viewAttribute;
 			this.notFoundUrl = options.notFoundUrl;
 
 			this.registerEvents(this.hashBangs);
 		}
 
 		_createClass(Gully, [{
-			key: 'state',
+			key: "state",
 			value: function state() {
 				var route = arguments[0] === undefined ? null : arguments[0];
 
@@ -31,25 +30,25 @@ define(['exports', 'module'], function (exports, module) {
 				}
 			}
 		}, {
-			key: 'init',
+			key: "init",
 			value: function init() {
 				this.handle();
 			}
 		}, {
-			key: 'registerEvents',
+			key: "registerEvents",
 			value: function registerEvents() {
 				var _this = this;
 
 				var hb = arguments[0] === undefined ? true : arguments[0];
 
 				if (hb === true) {
-					window.addEventListener('hashchange', function () {
+					window.addEventListener("hashchange", function () {
 						_this.handle();
 					});
 				}
 			}
 		}, {
-			key: 'handle',
+			key: "handle",
 			value: function handle() {
 
 				var fragment = this.getUrlFragment();
@@ -69,7 +68,7 @@ define(['exports', 'module'], function (exports, module) {
 						var r = _step.value;
 
 						var match = r.url.match(/\/([^\/]*).*$/);
-						var userRoutes = match ? match[1] : '';
+						var userRoutes = match ? match[1] : "";
 
 						// let routeFrags = userRoutes.split();
 
@@ -83,8 +82,8 @@ define(['exports', 'module'], function (exports, module) {
 					_iteratorError = err;
 				} finally {
 					try {
-						if (!_iteratorNormalCompletion && _iterator['return']) {
-							_iterator['return']();
+						if (!_iteratorNormalCompletion && _iterator["return"]) {
+							_iterator["return"]();
 						}
 					} finally {
 						if (_didIteratorError) {
@@ -98,7 +97,7 @@ define(['exports', 'module'], function (exports, module) {
 				}
 			}
 		}, {
-			key: 'applyState',
+			key: "applyState",
 			value: function applyState(url, route) {
 
 				if (route.controller) {
@@ -114,21 +113,21 @@ define(['exports', 'module'], function (exports, module) {
 				});
 			}
 		}, {
-			key: 'handleNotFoundUrl',
+			key: "handleNotFoundUrl",
 			value: function handleNotFoundUrl() {
 				var url = window.location.href;
-				url = url.replace(/#(.*)$/, '#/' + this.notFoundUrl);
+				url = url.replace(/#(.*)$/, "#/" + this.notFoundUrl);
 				window.location = url;
 			}
 		}, {
-			key: 'selectElement',
+			key: "selectElement",
 			value: function selectElement() {
 
 				if (document.querySelectorAll) {
-					return document.querySelector('[' + this.viewAttr + ']');
+					return document.querySelector("[" + this.viewAttr + "]");
 				} else {
 					var matchingElement = undefined;
-					var allElements = document.getElementsByTagName('*');
+					var allElements = document.getElementsByTagName("*");
 					var _iteratorNormalCompletion2 = true;
 					var _didIteratorError2 = false;
 					var _iteratorError2 = undefined;
@@ -147,8 +146,8 @@ define(['exports', 'module'], function (exports, module) {
 						_iteratorError2 = err;
 					} finally {
 						try {
-							if (!_iteratorNormalCompletion2 && _iterator2['return']) {
-								_iterator2['return']();
+							if (!_iteratorNormalCompletion2 && _iterator2["return"]) {
+								_iterator2["return"]();
 							}
 						} finally {
 							if (_didIteratorError2) {
@@ -161,10 +160,10 @@ define(['exports', 'module'], function (exports, module) {
 				}
 			}
 		}, {
-			key: 'getUrlFragment',
+			key: "getUrlFragment",
 			value: function getUrlFragment() {
 				var match = window.location.href.match(/\/#\/(.*)/);
-				var frag = match ? match[1] : '';
+				var frag = match ? match[1] : "";
 
 				return frag;
 			}

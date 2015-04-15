@@ -11,7 +11,9 @@
     "url": "http://github.com/nmabhinandan/gully"
   },
   "keywords": [
-    "es6", "router", "js-router"
+    "es6",
+    "router",
+    "js-router"
   ],
   "author": "Abhinandan <nmabhinandan@gmail.com>",
   "license": "MIT",
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/nmabhinandan/gully",
   "devDependencies": {
+    "babel": "^5.1.9",
     "chai": "^2.2.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
