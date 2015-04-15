@@ -1,0 +1,31 @@
+{
+  "name": "gully",
+  "version": "0.0.1",
+  "authors": [
+    "Abhinandan <nmabhinandan@gmail.com>"
+  ],
+  "description": "A modern client-side router written in ECMAScript 6",
+  "main": "dist/gully.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "router",
+    "es6"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/nmabhinandan/gully",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "es6-promise": "~2.0.1",
+    "fetch": "~0.7.0",
+    "requirejs": "~2.1.17",
+    "history.js": "~1.8.0"
+  }
+}
