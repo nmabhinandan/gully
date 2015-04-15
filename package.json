@@ -4,14 +4,14 @@
   "description": "A lightweight client-side router written in ES6",
   "main": "./src/gully.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs test.html"
   },
   "repository": {
     "type": "git",
     "url": "http://github.com/nmabhinandan/gully"
   },
   "keywords": [
-    "router"
+    "es6", "router", "js-router"
   ],
   "author": "Abhinandan <nmabhinandan@gmail.com>",
   "license": "MIT",

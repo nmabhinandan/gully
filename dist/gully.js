@@ -8,14 +8,14 @@ define(['exports', 'module'], function (exports, module) {
 	var Gully = (function () {
 		function Gully() {
 			var routes = arguments[0] === undefined ? [] : arguments[0];
-			var options = arguments[1] === undefined ? {} : arguments[1];
+			var options = arguments[1] === undefined ? { hashBangs: true, viewAttribute: 'data-gully-view', notFoundUrl: '404' } : arguments[1];
 
 			_classCallCheck(this, Gully);
 
 			this.routes = routes;
 			this.hashBangs = options.hashBangs;
-			this.viewAttr = 'data-gully-view';
-			this.notFoundUrl = '404';
+			this.viewAttr = options.viewAttribute;
+			this.notFoundUrl = options.notFoundUrl;
 
 			this.registerEvents(this.hashBangs);
 		}
