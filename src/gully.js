@@ -5,9 +5,9 @@
 
 export default class Gully {
 
-	constructor(options = { hashBangs: true, viewAttribute: "data-gully-view", notFoundUrl: "404" }) {
+	constructor(options = { hashBangs: true, viewAttribute: 'data-gully-view', notFoundUrl: "404" }) {
 
-		this.routes = [];
+		this._routes = [];
 		this.hashBangs = options.hashBangs;
 		this.viewAttribute = options.viewAttribute;
 		this.notFoundUrl = options.notFoundUrl;
@@ -17,7 +17,7 @@ export default class Gully {
 
 	state(route = null) {		
 		if (route != null){
-			this.routes.push(route);			
+			this._routes.push(route);			
 		} else {
 			throw (new Error('Cannot add empty state'));
 		}
@@ -42,9 +42,8 @@ export default class Gully {
 		let fragment = this.getUrlFragment();
 		let found = false;		
 		let frags = fragment.split(/\//);
-
-		console.log(frags);
-		for(let r of this.routes) {
+		
+		for(let r of this._routes) {
 			let match = r.url.match(/\/([^\/]*).*$/);
 			let userRoutes = match ? match[1] : '';
 
@@ -67,9 +66,9 @@ export default class Gully {
 		let viewElement = this.selectElement();
 		
 		fetch(route.templateUrl)
-			.then(function(response) {
+			.then(function(response) {				
 				return response.text()
-			}).then(function(body) {
+			}).then(function(body) {				
 				viewElement.innerHTML = body
 			});
 		
@@ -83,13 +82,13 @@ export default class Gully {
 
 	selectElement() {
 
-		if(document.querySelectorAll) {
-			return document.querySelector('[' + this.viewAttr + ']');
+		if(document.querySelector) {			
+			return document.querySelector('[' + this.viewAttribute + ']');
 		} else {
 			let matchingElement = undefined;
 			let allElements = document.getElementsByTagName('*');
 			for (let elt of allElements) {
-				if (elt.getAttribute(this.viewAttr) !== null) {
+				if (elt.getAttribute(this.viewAttribute) !== null) {
 					matchingElement = allElements[i];
 					break;
 				}

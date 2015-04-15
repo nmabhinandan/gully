@@ -32,16 +32,25 @@
 				templateUrl: 'templates/about.html',
 				controller: aboutCtrl
 			}).state({
+				url: '/user/:id',
+				templateUrl: 'templates/user.html',
+				controller: userCtrl
+			}).state({
 				url: '/404',
 				templateUrl: 'templates/404.html'
 			}).init();			
 
-			function homeCtrl() {
+			function homeCtrl(stateParams) {
 				console.log('I\'m home controller');
 			}
 
-			function aboutCtrl() {
+			function aboutCtrl(stateParams) {
 				console.log('I\'m about controller');
+			}
+
+			function userCtrl(stateParams) {
+				console.log('I\'m user controller');
+				console.log(stateParams);
 			}
 
 		});

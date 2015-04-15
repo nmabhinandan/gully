@@ -6,7 +6,7 @@ describe("Gully router test", function() {
 
 	it('should have default config parameters', function() {
 		
-		expect(gully.routes).to.deep.equal([]);
+		expect(gully._routes).to.deep.equal([]);
 		expect(gully.hashBangs).to.equal(true);
 		expect(gully.viewAttribute).to.equal('data-gully-view');
 		expect(gully.notFoundUrl).to.equal('404');
@@ -20,7 +20,7 @@ describe("Gully router test", function() {
 			notFoundUrl: 'testNotFoundUrl'
 		});
 
-		expect(gully_two.routes).to.deep.equal([]);
+		expect(gully_two._routes).to.deep.equal([]);
 		expect(gully_two.hashBangs).to.equal(false);
 		expect(gully_two.viewAttribute).to.equal('testViewAttr');
 		expect(gully_two.notFoundUrl).to.equal('testNotFoundUrl');
@@ -55,4 +55,11 @@ describe("Gully router test", function() {
 		handle.restore();
 	});
 
+	it('should handle the routing', function() {
+		let getUrlFragment = sinon.stub(gully, 'getUrlFragment');
+		let applyState = sinon.stub(gully, 'applyState');
+		let handleNotFoundUrl = sinon.stub(gully, 'handleNotFoundUrl');
+		let _routes = sinon.stub(gully, '_routes');
+
+	});
 });
