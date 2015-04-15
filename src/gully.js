@@ -1,7 +1,7 @@
 export default class Gully {
 
 	constructor(options = { hashBangs: true, viewAttribute: "data-gully-view", notFoundUrl: "404" }) {
-			
+
 		this.routes = [];
 		this.hashBangs = options.hashBangs;
 		this.viewAttribute = options.viewAttribute;
@@ -12,9 +12,11 @@ export default class Gully {
 
 	state(route = null) {		
 		if (route != null){
-			this.routes.push(route);
-			return this;
+			this.routes.push(route);			
+		} else {
+			throw (new Error('Cannot add empty state'));
 		}
+		return this;
 	}
 
 	init() {
@@ -26,7 +28,7 @@ export default class Gully {
 		if(hb === true) {			
 			window.addEventListener('hashchange', () => {
 				this.handle();
-			});			
+			});
 		}
 	}
 
@@ -35,16 +37,11 @@ export default class Gully {
 		let fragment = this.getUrlFragment();
 		let found = false;		
 		let frags = fragment.split(/\//);
-		// if (frags[frags.length] == '') {
-		// 	frags.splice(frags.length, 1);
-		// }
 
 		console.log(frags);
 		for(let r of this.routes) {
 			let match = r.url.match(/\/([^\/]*).*$/);
 			let userRoutes = match ? match[1] : '';
-
-			// let routeFrags = userRoutes.split();
 
 			if(userRoutes.trim() === fragment.trim()) {
 				this.applyState(userRoutes.trim(), r);

@@ -26,8 +26,10 @@ define(["exports", "module"], function (exports, module) {
 
 				if (route != null) {
 					this.routes.push(route);
-					return this;
+				} else {
+					throw new Error("Cannot add empty state");
 				}
+				return this;
 			}
 		}, {
 			key: "init",
@@ -54,9 +56,6 @@ define(["exports", "module"], function (exports, module) {
 				var fragment = this.getUrlFragment();
 				var found = false;
 				var frags = fragment.split(/\//);
-				// if (frags[frags.length] == '') {
-				// 	frags.splice(frags.length, 1);
-				// }
 
 				console.log(frags);
 				var _iteratorNormalCompletion = true;
@@ -69,8 +68,6 @@ define(["exports", "module"], function (exports, module) {
 
 						var match = r.url.match(/\/([^\/]*).*$/);
 						var userRoutes = match ? match[1] : "";
-
-						// let routeFrags = userRoutes.split();
 
 						if (userRoutes.trim() === fragment.trim()) {
 							this.applyState(userRoutes.trim(), r);
