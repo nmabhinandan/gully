@@ -1,6 +1,6 @@
 // RequireJS configuration
 require.config({
-    baseUrl: '/dist/tests',
+    baseUrl: 'dist/tests',
     urlArgs: 'cb=' + Math.random(),
 
 

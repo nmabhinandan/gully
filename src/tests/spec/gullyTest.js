@@ -29,10 +29,15 @@ describe("Gully router test", function() {
 	it('should register required events', function() {
 		let handle = sinon.stub(gully, 'handle');
 
-		window.dispatchEvent(new Event('hashchange'));
-		sinon.assert.calledOnce(handle);
+		// window.dispatchEvent(Event('hashchange')); // phantomjs doesn't support this syntax.
 
+		let event = document.createEvent('Event');
+		event.initEvent('hashchange', true, true);		
+		window.dispatchEvent(event);
+
+		sinon.assert.calledOnce(handle);
 		handle.restore();
+		
 	});
 
 	it('should add new states', function() {		
@@ -55,11 +60,11 @@ describe("Gully router test", function() {
 		handle.restore();
 	});
 
-	it('should handle the routing', function() {
-		let getUrlFragment = sinon.stub(gully, 'getUrlFragment');
-		let applyState = sinon.stub(gully, 'applyState');
-		let handleNotFoundUrl = sinon.stub(gully, 'handleNotFoundUrl');
-		let _routes = sinon.stub(gully, '_routes');
+	// it('should handle the routing', function() {
+	// 	let getUrlFragment = sinon.stub(gully, 'getUrlFragment');
+	// 	let applyState = sinon.stub(gully, 'applyState');
+	// 	let handleNotFoundUrl = sinon.stub(gully, 'handleNotFoundUrl');
+	// 	let _routes = sinon.stub(gully, '_routes');
 
-	});
+	// });
 });
