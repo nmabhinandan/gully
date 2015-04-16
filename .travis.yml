@@ -14,4 +14,4 @@ sudo: false
 before_script:
   - phantomjs --version
   - npm install -g bower
-  - bower instasll -f
+  - bower install -f
