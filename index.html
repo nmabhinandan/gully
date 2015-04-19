@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+		WebFontConfig = {
+			google: { families: [ 'Covered+By+Your+Grace::latin' ] }
+		};
+		(function() {
+			var wf = document.createElement('script');
+			wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+			  '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+			wf.type = 'text/javascript';
+			wf.async = 'true';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(wf, s);
+		})(); 
+  	</script>
+	<style>
+		body {			
+			background: -webkit-linear-gradient(90deg, #4b6cb7 10%, #182848 90%); /* Chrome 10+, Saf5.1+ */
+			background:    -moz-linear-gradient(90deg, #4b6cb7 10%, #182848 90%); /* FF3.6+ */
+			background:     -ms-linear-gradient(90deg, #4b6cb7 10%, #182848 90%); /* IE10 */
+			background:      -o-linear-gradient(90deg, #4b6cb7 10%, #182848 90%); /* Opera 11.10+ */
+			background:         linear-gradient(90deg, #4b6cb7 10%, #182848 90%); /* W3C */        	
+
+		}
+
+		.wf-loading body #title {
+			display: none;
+
+			-webkit-transition: display 1s linear 0.5s;
+			-o-transition: display 1s linear 0.5s;
+			transition: display 1s linear 0.5s;	
+		}
+
+		#title {
+			font-family: 'Covered By Your Grace', cursive;
+			font-size: 15em;
+			text-align: center;
+			color: white;
+			margin: 0 auto;			
+			display: block;
+
+		}
+
+		#description {
+			font-size: 25px;
+			color: white;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+	</style>
+</head>
+<body>
+	
+	<div id="title">
+		<p>
+			Gully.js
+		</p>
+	</div>
+	<div id="description">
+		<p>
+			A modern, lightweight client-side router written in ES6 (WIP)
+		</p>
+	</div>
+</body>
+</html>
