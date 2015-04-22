@@ -16,7 +16,7 @@ define(['exports', 'module'], function (exports, module) {
 
 			_classCallCheck(this, Gully);
 
-			this._routes = [];
+			this._routes = new Set();
 			this.hashBangs = options.hashBangs;
 			this.viewAttribute = options.viewAttribute;
 			this.notFoundUrl = options.notFoundUrl;
@@ -30,7 +30,7 @@ define(['exports', 'module'], function (exports, module) {
 				var route = arguments[0] === undefined ? null : arguments[0];
 
 				if (route != null) {
-					this._routes.push(route);
+					this._routes.add(route);
 				} else {
 					throw new Error('Cannot add empty state');
 				}
@@ -59,8 +59,8 @@ define(['exports', 'module'], function (exports, module) {
 			value: function handle() {
 
 				var fragment = this.getUrlFragment();
-				var found = false;
-				var frags = fragment.split(/\//);
+				var frags = fragment.split(/\//).filter(Boolean);
+				frags = frags.length === 0 ? ['/'] : frags;
 
 				var _iteratorNormalCompletion = true;
 				var _didIteratorError = false;
@@ -68,14 +68,22 @@ define(['exports', 'module'], function (exports, module) {
 
 				try {
 					for (var _iterator = this._routes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-						var r = _step.value;
+						var route = _step.value;
 
-						var match = r.url.match(/\/([^\/]*).*$/);
-						var userRoutes = match ? match[1] : '';
+						var url = route.url.split(/\//).filter(Boolean);
+						url = url.length === 0 ? ['/'] : url;
 
-						if (userRoutes.trim() === fragment.trim()) {
-							this.applyState(userRoutes.trim(), r);
-							found = true;
+						if (url.length !== frags.length) {
+							continue;
+						}
+
+						var matched = this.matchRoute(url, frags);
+						console.log(matched);
+						if (!matched) {
+							continue;
+						} else {
+							this.applyState(route, matched);
+							return;
 						}
 					}
 				} catch (err) {
@@ -93,16 +101,32 @@ define(['exports', 'module'], function (exports, module) {
 					}
 				}
 
-				if (!found) {
-					this.handleNotFoundUrl();
+				this.handleNotFoundUrl();
+			}
+		}, {
+			key: 'matchRoute',
+			value: function matchRoute(route, frags) {
+				var params = new Map();
+				for (var _i = 0; _i < frags.length; _i++) {
+					var isParam = route[_i].match(/^:.+/) ? route[_i].match(/^:.+/)[0] : false;
+
+					if (isParam) {
+						params.set(isParam.substr(1), frags[_i]);
+						continue;
+					}
+
+					if (route[_i].trim() !== frags[_i].trim()) {
+						return false;
+					}
 				}
+				return params;
 			}
 		}, {
 			key: 'applyState',
-			value: function applyState(url, route) {
+			value: function applyState(route, params) {
 
 				if (route.controller) {
-					route.controller();
+					route.controller(params);
 				}
 
 				var viewElement = this.selectElement();
@@ -164,9 +188,7 @@ define(['exports', 'module'], function (exports, module) {
 			key: 'getUrlFragment',
 			value: function getUrlFragment() {
 				var match = window.location.href.match(/\/#\/(.*)/);
-				var frag = match ? match[1] : '';
-
-				return frag;
+				return match ? match[1] : '';
 			}
 		}]);
 

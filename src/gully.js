@@ -7,7 +7,7 @@ export default class Gully {
 
 	constructor(options = { hashBangs: true, viewAttribute: 'data-gully-view', notFoundUrl: "404" }) {
 
-		this._routes = [];
+		this._routes = new Set();
 		this.hashBangs = options.hashBangs;
 		this.viewAttribute = options.viewAttribute;
 		this.notFoundUrl = options.notFoundUrl;
@@ -17,7 +17,7 @@ export default class Gully {
 
 	state(route = null) {		
 		if (route != null){
-			this._routes.push(route);			
+			this._routes.add(route);			
 		} else {
 			throw (new Error('Cannot add empty state'));
 		}
@@ -40,27 +40,52 @@ export default class Gully {
 	handle() {		
 
 		let fragment = this.getUrlFragment();
-		let found = false;		
-		let frags = fragment.split(/\//);
-		
-		for(let r of this._routes) {
-			let match = r.url.match(/\/([^\/]*).*$/);
-			let userRoutes = match ? match[1] : '';
+		let frags = fragment.split(/\//).filter(Boolean);
+		frags = frags.length === 0 ? ['/'] : frags;
 
-			if(userRoutes.trim() === fragment.trim()) {
-				this.applyState(userRoutes.trim(), r);
-				found = true;
+		for(let route of this._routes) {
+			let url = route.url.split(/\//).filter(Boolean);			
+			url = url.length === 0 ? ['/'] : url;
+			
+			if(url.length !== frags.length) {
+				continue;
+			}
+
+			let matched = this.matchRoute(url, frags);
+			console.log(matched);
+			if(! matched) {				
+				continue;
+			} else {				
+				this.applyState(route, matched);				
+				return;
 			}
 		}
-		if(! found) {
-			this.handleNotFoundUrl();
-		}
+		
+		this.handleNotFoundUrl();
 	}
 
-	applyState(url, route) {				
+	matchRoute(route, frags) {
+		let params = new Map();
+		for(let i = 0; i < frags.length; i++) {
+			let isParam = route[i].match(/^:.+/) ? route[i].match(/^:.+/)[0] : false;
+
+			if(isParam) {
+				params.set(isParam.substr(1), frags[i]);
+				continue;
+			}
+
+			if(route[i].trim() !== frags[i].trim()) {
+				return false;
+			}
+
+		}
+		return params;
+	}
+
+	applyState(route, params) {		
 		
 		if(route.controller) {
-			route.controller();
+			route.controller(params);
 		}
 		
 		let viewElement = this.selectElement();
@@ -99,9 +124,7 @@ export default class Gully {
 
 	getUrlFragment() {		
 		let match = window.location.href.match(/\/#\/(.*)/);				
-        let frag = match ? match[1] : '';        
-
-        return frag;
+        return match ? match[1] : '';
 	}
 		
 }
