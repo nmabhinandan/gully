@@ -4,5 +4,10 @@
 [![Build Status](https://travis-ci.org/nmabhinandan/gully.svg)](https://travis-ci.org/nmabhinandan/gully)
 [![Code Climate](https://codeclimate.com/github/nmabhinandan/gully/badges/gpa.svg)](https://codeclimate.com/github/nmabhinandan/gully)
 
-# Licence
+## Todo:
+
+* HTML5 History API implementation
+* Sub states
+
+## Licence
 #### MIT
