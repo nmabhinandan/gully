@@ -6,16 +6,17 @@ gulp.task('js', function() {
 	return gulp.src('src/*.js')
 		.pipe(sourcemaps.init())
 		.pipe(babel({
-			modules: 'amd'
+			modules: 'ignore'
 		}))
 		.pipe(sourcemaps.write("."))
 		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('tests', function() {
-	return gulp.src('src/tests/**/*js')
+	return gulp.src('src/tests/*js')
 		.pipe(babel({
-			modules: 'amd'
+			modules: 'ignore',
+			moduleId: 'Test'
 		}))
 		.pipe(gulp.dest('dist/tests'));
 });

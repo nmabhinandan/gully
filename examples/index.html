@@ -8,52 +8,53 @@
 	
 
 	<div data-gully-view></div>
-	<script src="/bower_components/es6-promise/promise.min.js"></script>
-	<script src="/bower_components/fetch/fetch.js"></script>
-	<script src="/bower_components/requirejs/require.js"></script>
+	<script src="bower_components/es6-promise/promise.min.js"></script>
+	<script src="bower_components/fetch/fetch.js"></script>	
 
-	<!--script src="/dist/gully.js"></script-->
-	
+	<script src="/dist/gully.js"></script>	
 
-	<script>
-		require.config({
-			waitSeconds: 6
-		});
+	<script>		
+		var gully = new Gully();
+		
+		gully.state({
+			url: '/',
+			templateUrl: 'templates/home.html',
+			controller: homeCtrl
+		}).state({
+			url: '/about',
+			templateUrl: 'templates/about.html',
+			controller: aboutCtrl
+		}).state({
+			url: '/user/:uid',
+			templateUrl: 'templates/user.html',
+			controller: userCtrl
+		}).state({
+			url: '/post/:pid',
+			templateUrl: 'templates/post.html',
+			controller: postCtrl
+		}).state({
+			url: '/404',
+			templateUrl: 'templates/404.html'
+		}).init();			
 
-		require(['../dist/gully'], function(Gully) {
-			var gully = new Gully();
-			
-			gully.state({
-				url: '/',
-				templateUrl: 'templates/home.html',
-				controller: homeCtrl
-			}).state({
-				url: '/about',
-				templateUrl: 'templates/about.html',
-				controller: aboutCtrl
-			}).state({
-				url: '/user/:id',
-				templateUrl: 'templates/user.html',
-				controller: userCtrl
-			}).state({
-				url: '/404',
-				templateUrl: 'templates/404.html'
-			}).init();			
+		function homeCtrl(stateParams) {
+			console.log('I\'m home controller');
+		}
 
-			function homeCtrl(stateParams) {
-				console.log('I\'m home controller');
-			}
+		function aboutCtrl(stateParams) {
+			console.log('I\'m about controller');
+		}
 
-			function aboutCtrl(stateParams) {
-				console.log('I\'m about controller');
-			}
+		function userCtrl(stateParams) {
+			console.log('I\'m user controller');
+			console.log(stateParams);
+		}
 
-			function userCtrl(stateParams) {
-				console.log('I\'m user controller');
-				console.log(stateParams);
-			}
+		function postCtrl(stateParams) {
+			console.log('I\'m post controller');
+			console.log(stateParams);
+		}
 
-		});
 	</script>
 </body>
 </html>
