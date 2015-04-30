@@ -12,8 +12,7 @@ matrix:
 sudo: false
 
 before_script:  
-  - npm install -g bower
-  - cd examples && bower install -f
+  - npm install -g karma-cli
 
 before_install:
   - "export DISPLAY=:99.0"
