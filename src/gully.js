@@ -8,11 +8,11 @@ export default class Gully {
 	constructor(options = { hashBangs: true, viewAttribute: 'data-gully-view', notFoundUrl: "404" }) {
 
 		this._routes = new Set();
-		this.hashBangs = options.hashBangs;
-		this.viewAttribute = options.viewAttribute;
-		this.notFoundUrl = options.notFoundUrl;
+		this._hashBangs = options.hashBangs;
+		this._viewAttribute = options.viewAttribute;
+		this._notFoundUrl = options.notFoundUrl;
 		
-		this.registerEvents(this.hashBangs);
+		this.registerEvents(this._hashBangs);
 	}
 
 	state(route = null) {		
@@ -25,7 +25,7 @@ export default class Gully {
 	}
 
 	init() {
-		this.handle();
+		this._handle();
 	}
 	
 	registerEvents(hb = true) {
@@ -37,7 +37,7 @@ export default class Gully {
 		}
 	}
 
-	handle() {		
+	_handle() {		
 
 		let fragment = this.getUrlFragment();
 		let frags = fragment.split(/\//).filter(Boolean);
@@ -101,19 +101,19 @@ export default class Gully {
 
 	handleNotFoundUrl() {
 		let url = window.location.href;
-		url = url.replace(/#(.*)$/, '#/' + this.notFoundUrl);
+		url = url.replace(/#(.*)$/, '#/' + this._notFoundUrl);
 		window.location = url;
 	}
 
 	selectElement() {
 
 		if(document.querySelector) {			
-			return document.querySelector('[' + this.viewAttribute + ']');
+			return document.querySelector('[' + this._viewAttribute + ']');
 		} else {
 			let matchingElement = undefined;
 			let allElements = document.getElementsByTagName('*');
 			for (let elt of allElements) {
-				if (elt.getAttribute(this.viewAttribute) !== null) {
+				if (elt.getAttribute(this._viewAttribute) !== null) {
 					matchingElement = allElements[i];
 					break;
 				}

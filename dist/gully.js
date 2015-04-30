@@ -16,11 +16,11 @@ var Gully = (function () {
 		_classCallCheck(this, Gully);
 
 		this._routes = new Set();
-		this.hashBangs = options.hashBangs;
-		this.viewAttribute = options.viewAttribute;
-		this.notFoundUrl = options.notFoundUrl;
+		this._hashBangs = options.hashBangs;
+		this._viewAttribute = options.viewAttribute;
+		this._notFoundUrl = options.notFoundUrl;
 
-		this.registerEvents(this.hashBangs);
+		this.registerEvents(this._hashBangs);
 	}
 
 	_createClass(Gully, [{
@@ -38,7 +38,7 @@ var Gully = (function () {
 	}, {
 		key: 'init',
 		value: function init() {
-			this.handle();
+			this._handle();
 		}
 	}, {
 		key: 'registerEvents',
@@ -54,8 +54,8 @@ var Gully = (function () {
 			}
 		}
 	}, {
-		key: 'handle',
-		value: function handle() {
+		key: '_handle',
+		value: function _handle() {
 
 			var fragment = this.getUrlFragment();
 			var frags = fragment.split(/\//).filter(Boolean);
@@ -140,7 +140,7 @@ var Gully = (function () {
 		key: 'handleNotFoundUrl',
 		value: function handleNotFoundUrl() {
 			var url = window.location.href;
-			url = url.replace(/#(.*)$/, '#/' + this.notFoundUrl);
+			url = url.replace(/#(.*)$/, '#/' + this._notFoundUrl);
 			window.location = url;
 		}
 	}, {
@@ -148,7 +148,7 @@ var Gully = (function () {
 		value: function selectElement() {
 
 			if (document.querySelector) {
-				return document.querySelector('[' + this.viewAttribute + ']');
+				return document.querySelector('[' + this._viewAttribute + ']');
 			} else {
 				var matchingElement = undefined;
 				var allElements = document.getElementsByTagName('*');
@@ -160,7 +160,7 @@ var Gully = (function () {
 					for (var _iterator2 = allElements[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
 						var elt = _step2.value;
 
-						if (elt.getAttribute(this.viewAttribute) !== null) {
+						if (elt.getAttribute(this._viewAttribute) !== null) {
 							matchingElement = allElements[i];
 							break;
 						}
