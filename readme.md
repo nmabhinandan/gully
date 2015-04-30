@@ -11,6 +11,3 @@
 
 * HTML5 History API implementation
 * Sub states
-
-## Licence
-#### MIT
