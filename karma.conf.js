@@ -15,8 +15,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // polyfills
+      'node_modules/babel/node_modules/babel-core/browser-polyfill.js',
+      'examples/bower_components/fetch/fetch.js',
+
+      // libs
       'node_modules/chai/chai.js',
       'node_modules/sinon/pkg/sinon.js',
+
+      // files
       'dist/*.js',
       'dist/tests/*_Spec.js'
     ],
@@ -26,17 +33,23 @@ module.exports = function(config) {
     exclude: [
     ],
 
+    coverageReporter: {
+      type: 'lcovonly',
+      dir: 'coverage',
+      subdir: '.',
+      file: 'lcov.info'
+    },
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'dist/*.js': ['coverage']
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port

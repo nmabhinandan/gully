@@ -11,8 +11,17 @@ matrix:
 
 sudo: false
 
+addons:
+  code_climate:
+    repo_token:
+      secure: "CZbt+rS3GrPQgQJy1tEJ7VsNUSfZJbfw2L3Xb+6V7wgmt3OuZ+MSR7uox+vlAL+p8wIb9gf9BJl3KZVYRf4a+roSgGEDDi03ZFV1vg4/3dS/Iz4BLjJRLvojq9er3+aUFbPt2AVpGZyeXK1lxU/4oEOCBemZHl7hh8tLFdLWuM4="
+
 before_script:  
   - npm install -g karma-cli
+  - npm install -g codeclimate-test-reporter
+
+after_script:
+  - codeclimate < coverage/lcov.info
 
 before_install:
   - "export DISPLAY=:99.0"
