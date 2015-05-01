@@ -4,7 +4,7 @@
   "description": "A lightweight client-side router written in ES6",
   "main": "./src/gully.js",
   "scripts": {
-    "test": "node_modules/karma/bin/karma start --browsers Firefox --single-run true"    
+    "test": "node_modules/karma/bin/karma start --browsers Firefox --single-run true"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/nmabhinandan/gully/issues"
   },
-  "homepage": "https://github.com/nmabhinandan/gully",
+  "homepage": "https://gully.js.org",
   "devDependencies": {
     "babel": "^5.1.9",
     "chai": "^2.2.0",
@@ -29,9 +29,9 @@
     "gulp-sourcemaps": "^1.5.1",
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.8",
+    "karma-coverage": "^0.3.1",
     "karma-firefox-launcher": "^0.1.4",
-    "karma-mocha": "^0.1.10",
-    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-mocha": "^0.1.10",    
     "mocha": "^2.2.4",
     "sinon": "^1.14.1"
   }
