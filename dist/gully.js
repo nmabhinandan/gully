@@ -49,7 +49,7 @@ var Gully = (function () {
 
 			if (hb === true) {
 				window.addEventListener('hashchange', function () {
-					_this.handle();
+					_this._handle();
 				});
 			}
 		}

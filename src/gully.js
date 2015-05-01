@@ -32,7 +32,7 @@ export default class Gully {
 
 		if(hb === true) {			
 			window.addEventListener('hashchange', () => {
-				this.handle();
+				this._handle();
 			});
 		}
 	}

@@ -32,18 +32,18 @@ describe("Gully router test", function() {
 
 	it('should register required events', function() {
 		let gully = new Gully();
-		// let _handle = sinon.stub(gully, '_handle');
+		let _handle = sinon.stub(gully, '_handle');
 
-		// window.dispatchEvent(new Event('hashchange')); // phantomjs doesn't support this syntax.
+		window.dispatchEvent(new Event('hashchange')); // phantomjs doesn't support this syntax.
 
-		// let event = document.createEvent('Event');
-		// event.initEvent('hashchange', true, true);		
-		// dispatchEvent(event);
+		// // let event = document.createEvent('Event');
+		// // event.initEvent('hashchange', true, true);		
+		// // dispatchEvent(event);
 
 	
-		// sinon.assert.calledOnce(handle);
+		sinon.assert.calledOnce(_handle);
 		
-		// handle.restore();
+		_handle.restore();
 	});
 
 	it('should add new states', function() {	
