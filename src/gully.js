@@ -51,12 +51,11 @@ export default class Gully {
 				continue;
 			}
 
-			let matched = this.matchRoute(url, frags);
-			console.log(matched);
+			let matched = this.matchRoute(url, frags);			
 			if(! matched) {				
 				continue;
 			} else {				
-				this.applyState(route, matched);				
+				this.applyState(route, matched); // matched = route parameters
 				return;
 			}
 		}
@@ -89,13 +88,17 @@ export default class Gully {
 		}
 		
 		let viewElement = this.selectElement();
-		
-		fetch(route.templateUrl)
-			.then(function(response) {				
-				return response.text()
-			}).then(function(body) {				
-				viewElement.innerHTML = body
-			});
+
+		if(route.template !== undefined) {
+			viewElement.innerHTML = route.template;
+		} else if(route.templateUrl !== undefined) {
+			fetch(route.templateUrl)
+				.then(function(response) {				
+					return response.text()
+				}).then(function(body) {				
+					viewElement.innerHTML = body
+				});	
+		}
 		
 	}
 

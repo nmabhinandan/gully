@@ -77,11 +77,10 @@ var Gully = (function () {
 					}
 
 					var matched = this.matchRoute(url, frags);
-					console.log(matched);
 					if (!matched) {
 						continue;
 					} else {
-						this.applyState(route, matched);
+						this.applyState(route, matched); // matched = route parameters
 						return;
 					}
 				}
@@ -130,11 +129,15 @@ var Gully = (function () {
 
 			var viewElement = this.selectElement();
 
-			fetch(route.templateUrl).then(function (response) {
-				return response.text();
-			}).then(function (body) {
-				viewElement.innerHTML = body;
-			});
+			if (route.template !== undefined) {
+				viewElement.innerHTML = route.template;
+			} else if (route.templateUrl !== undefined) {
+				fetch(route.templateUrl).then(function (response) {
+					return response.text();
+				}).then(function (body) {
+					viewElement.innerHTML = body;
+				});
+			}
 		}
 	}, {
 		key: 'handleNotFoundUrl',
