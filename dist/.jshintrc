@@ -1,0 +1,6 @@
+{
+    "predef": ["Set", "Map", "fetch"],
+    "browser": true,
+    "es5": true,
+    "globalstrict": true
+}
