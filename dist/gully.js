@@ -19,7 +19,6 @@ var Gully = (function () {
 		this._hashBangs = options.hashBangs;
 		this._viewAttribute = options.viewAttribute;
 		this._notFoundUrl = options.notFoundUrl;
-
 		this.registerEvents(this._hashBangs);
 	}
 
@@ -28,11 +27,12 @@ var Gully = (function () {
 		value: function state() {
 			var route = arguments[0] === undefined ? null : arguments[0];
 
-			if (route != null) {
+			if (route !== null) {
 				this._routes.add(route);
 			} else {
 				throw new Error('Cannot add empty state');
 			}
+
 			return this;
 		}
 	}, {
@@ -48,6 +48,7 @@ var Gully = (function () {
 			var hb = arguments[0] === undefined ? true : arguments[0];
 
 			if (hb === true) {
+
 				window.addEventListener('hashchange', function () {
 					_this._handle();
 				});
@@ -76,7 +77,8 @@ var Gully = (function () {
 						continue;
 					}
 
-					var matched = this.matchRoute(url, frags);
+					var matched = this._matchRoute(url, frags);
+
 					if (!matched) {
 						continue;
 					} else {
@@ -99,16 +101,19 @@ var Gully = (function () {
 				}
 			}
 
-			this.handleNotFoundUrl();
+			this._handleNotFoundUrl();
 		}
 	}, {
-		key: 'matchRoute',
-		value: function matchRoute(route, frags) {
+		key: '_matchRoute',
+		value: function _matchRoute(route, frags) {
+
 			var params = new Map();
 			for (var _i = 0; _i < frags.length; _i++) {
+
 				var isParam = route[_i].match(/^:.+/) ? route[_i].match(/^:.+/)[0] : false;
 
 				if (isParam) {
+
 					params.set(isParam.substr(1), frags[_i]);
 					continue;
 				}
@@ -117,21 +122,34 @@ var Gully = (function () {
 					return false;
 				}
 			}
+
 			return params;
 		}
 	}, {
 		key: 'applyState',
 		value: function applyState(route, params) {
 
+			this._callController(route);
+			this._renderTemplates(route);
+		}
+	}, {
+		key: '_callController',
+		value: function _callController(route) {
+
 			if (route.controller) {
 				route.controller(params);
 			}
+		}
+	}, {
+		key: '_renderTemplates',
+		value: function _renderTemplates(route) {
 
-			var viewElement = this.selectElement();
+			var viewElement = this._selectElement();
 
 			if (route.template !== undefined) {
 				viewElement.innerHTML = route.template;
 			} else if (route.templateUrl !== undefined) {
+
 				fetch(route.templateUrl).then(function (response) {
 					return response.text();
 				}).then(function (body) {
@@ -140,20 +158,20 @@ var Gully = (function () {
 			}
 		}
 	}, {
-		key: 'handleNotFoundUrl',
-		value: function handleNotFoundUrl() {
+		key: '_handleNotFoundUrl',
+		value: function _handleNotFoundUrl() {
+
 			var url = window.location.href;
 			url = url.replace(/#(.*)$/, '#/' + this._notFoundUrl);
 			window.location = url;
 		}
 	}, {
-		key: 'selectElement',
-		value: function selectElement() {
+		key: '_selectElement',
+		value: function _selectElement() {
 
 			if (document.querySelector) {
 				return document.querySelector('[' + this._viewAttribute + ']');
 			} else {
-				var matchingElement = undefined;
 				var allElements = document.getElementsByTagName('*');
 				var _iteratorNormalCompletion2 = true;
 				var _didIteratorError2 = false;
@@ -189,6 +207,7 @@ var Gully = (function () {
 	}, {
 		key: 'getUrlFragment',
 		value: function getUrlFragment() {
+
 			var match = window.location.href.match(/\/#\/(.*)/);
 			return match ? match[1] : '';
 		}
